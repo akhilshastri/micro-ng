@@ -59,7 +59,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "host:build"
+            "browserTarget": "host:build",
+            "proxyConfig": "apps/host/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -117,6 +118,430 @@
           "options": {
             "tsConfig": ["apps/host-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/host-e2e/**"]
+          }
+        }
+      }
+    },
+    "ui-server": {
+      "root": "apps/ui-server",
+      "sourceRoot": "apps/ui-server/src",
+      "projectType": "application",
+      "prefix": "ui-server",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/ui-server",
+            "main": "apps/ui-server/src/main.ts",
+            "tsConfig": "apps/ui-server/tsconfig.app.json",
+            "assets": ["apps/ui-server/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/ui-server/src/environments/environment.ts",
+                  "with": "apps/ui-server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ui-server:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ui-server/tsconfig.app.json",
+              "apps/ui-server/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ui-server/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ui-server/jest.config.js",
+            "tsConfig": "apps/ui-server/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "payments": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/payments",
+      "sourceRoot": "apps/payments/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/payments",
+            "index": "apps/payments/src/index.html",
+            "main": "apps/payments/src/main.ts",
+            "polyfills": "apps/payments/src/polyfills.ts",
+            "tsConfig": "apps/payments/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/payments/src/favicon.ico",
+              "apps/payments/src/assets"
+            ],
+            "styles": ["apps/payments/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/payments/src/environments/environment.ts",
+                  "with": "apps/payments/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "payments:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "payments:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "payments:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/payments/tsconfig.app.json",
+              "apps/payments/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/payments/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/payments/jest.config.js",
+            "tsConfig": "apps/payments/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/payments/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "payments-e2e": {
+      "root": "apps/payments-e2e",
+      "sourceRoot": "apps/payments-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/payments-e2e/cypress.json",
+            "tsConfig": "apps/payments-e2e/tsconfig.e2e.json",
+            "devServerTarget": "payments:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "payments:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/payments-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/payments-e2e/**"]
+          }
+        }
+      }
+    },
+    "transactions": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/transactions",
+      "sourceRoot": "apps/transactions/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/transactions",
+            "index": "apps/transactions/src/index.html",
+            "main": "apps/transactions/src/main.ts",
+            "polyfills": "apps/transactions/src/polyfills.ts",
+            "tsConfig": "apps/transactions/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/transactions/src/favicon.ico",
+              "apps/transactions/src/assets"
+            ],
+            "styles": ["apps/transactions/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/transactions/src/environments/environment.ts",
+                  "with": "apps/transactions/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "transactions:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "transactions:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "transactions:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/transactions/tsconfig.app.json",
+              "apps/transactions/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/transactions/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/transactions/jest.config.js",
+            "tsConfig": "apps/transactions/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/transactions/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "transactions-e2e": {
+      "root": "apps/transactions-e2e",
+      "sourceRoot": "apps/transactions-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/transactions-e2e/cypress.json",
+            "tsConfig": "apps/transactions-e2e/tsconfig.e2e.json",
+            "devServerTarget": "transactions:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "transactions:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/transactions-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/transactions-e2e/**"]
+          }
+        }
+      }
+    },
+    "mortgages": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/mortgages",
+      "sourceRoot": "apps/mortgages/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/mortgages",
+            "index": "apps/mortgages/src/index.html",
+            "main": "apps/mortgages/src/main.ts",
+            "polyfills": "apps/mortgages/src/polyfills.ts",
+            "tsConfig": "apps/mortgages/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/mortgages/src/favicon.ico",
+              "apps/mortgages/src/assets"
+            ],
+            "styles": ["apps/mortgages/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mortgages/src/environments/environment.ts",
+                  "with": "apps/mortgages/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mortgages:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mortgages:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mortgages:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mortgages/tsconfig.app.json",
+              "apps/mortgages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/mortgages/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mortgages/jest.config.js",
+            "tsConfig": "apps/mortgages/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/mortgages/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "mortgages-e2e": {
+      "root": "apps/mortgages-e2e",
+      "sourceRoot": "apps/mortgages-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/mortgages-e2e/cypress.json",
+            "tsConfig": "apps/mortgages-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mortgages:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mortgages:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/mortgages-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/mortgages-e2e/**"]
           }
         }
       }

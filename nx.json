@@ -25,6 +25,30 @@
     "host-e2e": {
       "tags": [],
       "implicitDependencies": ["host"]
+    },
+    "ui-server": {
+      "tags": []
+    },
+    "payments": {
+      "tags": []
+    },
+    "payments-e2e": {
+      "tags": [],
+      "implicitDependencies": ["payments"]
+    },
+    "transactions": {
+      "tags": []
+    },
+    "transactions-e2e": {
+      "tags": [],
+      "implicitDependencies": ["transactions"]
+    },
+    "mortgages": {
+      "tags": []
+    },
+    "mortgages-e2e": {
+      "tags": [],
+      "implicitDependencies": ["mortgages"]
     }
   }
 }
