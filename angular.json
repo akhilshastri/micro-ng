@@ -12,6 +12,23 @@
       "sourceRoot": "apps/host/src",
       "prefix": "micro-ng",
       "architect": {
+        "all": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "ng serve host --port 5100"
+              },
+              {
+                "command": "ng serve layout --port 5200"
+              },
+              {
+                "command": "ng serve mortgages --port 5300"
+              }
+            ],
+            "parallel": true
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
