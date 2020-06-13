@@ -59,6 +59,12 @@
     "layout-e2e": {
       "tags": [],
       "implicitDependencies": ["layout"]
+    },
+    "platform-host": {
+      "tags": []
+    },
+    "platform-feature": {
+      "tags": []
     }
   }
 }

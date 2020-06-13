@@ -16,7 +16,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@micro-ng/platform/core": ["libs/platform/core/src/index.ts"]
+      "@micro-ng/platform/core": ["libs/platform/core/src/index.ts"],
+      "@micro-ng/platform/host": ["libs/platform/host/src/index.ts"],
+      "@micro-ng/platform/feature": ["libs/platform/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

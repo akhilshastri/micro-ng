@@ -1,5 +1,5 @@
-import { ReplaySubject } from 'rxjs';
-import { HostAppProps } from '@micro-ng/platform/core';//'single-spa';
+import {ReplaySubject} from 'rxjs';
+import {HostAppProps} from '@micro-ng/platform/host';//'single-spa';
 
 
 // Add any custom single-spa props you have to this type def

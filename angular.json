@@ -17,13 +17,16 @@
           "options": {
             "commands": [
               {
-                "command": "ng serve host --port 5100"
+                "command": "ng serve host    --port 5100"
               },
               {
-                "command": "ng serve layout --port 5200"
+                "command": "ng serve layout  --port 5200"
               },
               {
-                "command": "ng serve mortgages --port 5300"
+                "command": "ng serve mortgages  --port 5300"
+              },
+              {
+                "command": "ng serve transactions  --port 5400"
               }
             ],
             "parallel": true
@@ -329,11 +332,11 @@
       "prefix": "micro-ng",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/apps/transactions",
             "index": "apps/transactions/src/index.html",
-            "main": "apps/transactions/src/main.ts",
+            "main": "apps/transactions/src/main.feature-app.ts",
             "polyfills": "apps/transactions/src/polyfills.ts",
             "tsConfig": "apps/transactions/tsconfig.app.json",
             "aot": true,
@@ -342,7 +345,11 @@
               "apps/transactions/src/assets"
             ],
             "styles": ["apps/transactions/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "apps/transactions/feature-app-wp.config.js",
+              "libraryName": "transactions"
+            }
           },
           "configurations": {
             "production": {
@@ -376,7 +383,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "transactions:build"
           },
@@ -467,7 +474,8 @@
             "styles": ["apps/mortgages/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
-              "path": "apps/mortgages/feature-app-wp.config.js"
+              "path": "apps/mortgages/feature-app-wp.config.js",
+              "libraryName": "mortgages"
             }
           },
           "configurations": {
@@ -626,16 +634,16 @@
           "options": {
             "outputPath": "dist/apps/layout",
             "index": "apps/layout/src/index.html",
-            "main":  "apps/layout/src/main.feature-app.ts",
-            "polyfills":"apps/layout/src/polyfills.ts",
+            "main": "apps/layout/src/main.feature-app.ts",
+            "polyfills": "apps/layout/src/polyfills.ts",
             "tsConfig": "apps/layout/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/layout/src/favicon.ico",
-                       "apps/layout/src/assets"],
+            "aot": true,
+            "assets": ["apps/layout/src/favicon.ico", "apps/layout/src/assets"],
             "styles": ["apps/layout/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
-              "path": "apps/layout/feature-app-wp.config.js"
+              "path": "apps/layout/feature-app-wp.config.js",
+              "libraryName": "layout"
             }
           },
           "configurations": {
@@ -731,6 +739,94 @@
             "tsConfig": ["apps/layout-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/layout-e2e/**"]
           }
+        }
+      }
+    },
+    "platform-host": {
+      "projectType": "library",
+      "root": "libs/platform/host",
+      "sourceRoot": "libs/platform/host/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/platform/host/tsconfig.lib.json",
+            "project": "libs/platform/host/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/platform/host/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/platform/host/tsconfig.lib.json",
+              "libs/platform/host/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/platform/host/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/platform/host/jest.config.js",
+            "tsConfig": "libs/platform/host/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/platform/host/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "platform-feature": {
+      "projectType": "library",
+      "root": "libs/platform/feature",
+      "sourceRoot": "libs/platform/feature/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/platform/feature/tsconfig.lib.json",
+            "project": "libs/platform/feature/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/platform/feature/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/platform/feature/tsconfig.lib.json",
+              "libs/platform/feature/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/platform/feature/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/platform/feature/jest.config.js",
+            "tsConfig": "libs/platform/feature/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/platform/feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }

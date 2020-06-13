@@ -5,22 +5,30 @@
     "changeOrigin": true,
     "secure": false
   },
-  "/layout": {
+  "/layout/app": {
     "target": "http://localhost:5200",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/layout": ""
+      "^/layout/app": ""
     }
   },
-  "/mortgages": {
+  "/mortgages/app": {
     "target": "http://localhost:5300",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/mortgages": ""
+      "^/mortgages/app": ""
+    }
+  },"/transactions/app": {
+    "target": "http://localhost:5400",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/transactions/app": ""
     }
   }
 }

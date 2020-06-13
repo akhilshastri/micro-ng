@@ -1,1 +1,10 @@
 <p>header works!</p>
+<div >
+  Menus :
+  <ul>
+    <li *ngFor="let menu of menuList">
+      <a [routerLink]="menu.url">{{menu.name}}</a>
+    </li>
+  </ul>
+
+</div>
