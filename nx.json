@@ -49,6 +49,16 @@
     "mortgages-e2e": {
       "tags": [],
       "implicitDependencies": ["mortgages"]
+    },
+    "platform-core": {
+      "tags": []
+    },
+    "layout": {
+      "tags": []
+    },
+    "layout-e2e": {
+      "tags": [],
+      "implicitDependencies": ["layout"]
     }
   }
 }

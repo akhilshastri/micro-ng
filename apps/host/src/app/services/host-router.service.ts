@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Router} from '../core/router';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 export class HostRouterService {
 
   router: Router = null;
