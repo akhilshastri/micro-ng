@@ -829,6 +829,252 @@
           "style": "scss"
         }
       }
+    },
+    "lagacy-ng": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/lagacy-ng",
+      "sourceRoot": "apps/lagacy-ng/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/lagacy-ng",
+            "index": "apps/lagacy-ng/src/index.html",
+            "main": "apps/lagacy-ng/src/main.ts",
+            "polyfills": "apps/lagacy-ng/src/polyfills.ts",
+            "tsConfig": "apps/lagacy-ng/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/lagacy-ng/src/favicon.ico",
+              "apps/lagacy-ng/src/assets"
+            ],
+            "styles": ["apps/lagacy-ng/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/lagacy-ng/src/environments/environment.ts",
+                  "with": "apps/lagacy-ng/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "lagacy-ng:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "lagacy-ng:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "lagacy-ng:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/lagacy-ng/tsconfig.app.json",
+              "apps/lagacy-ng/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/lagacy-ng/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/lagacy-ng/jest.config.js",
+            "tsConfig": "apps/lagacy-ng/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/lagacy-ng/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "lagacy-ng-e2e": {
+      "root": "apps/lagacy-ng-e2e",
+      "sourceRoot": "apps/lagacy-ng-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/lagacy-ng-e2e/cypress.json",
+            "tsConfig": "apps/lagacy-ng-e2e/tsconfig.e2e.json",
+            "devServerTarget": "lagacy-ng:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "lagacy-ng:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/lagacy-ng-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/lagacy-ng-e2e/**"]
+          }
+        }
+      }
+    },
+    "lagacy-j-query": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/lagacy-j-query",
+      "sourceRoot": "apps/lagacy-j-query/src",
+      "prefix": "micro-ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/lagacy-j-query",
+            "index": "apps/lagacy-j-query/src/index.html",
+            "main": "apps/lagacy-j-query/src/main.ts",
+            "polyfills": "apps/lagacy-j-query/src/polyfills.ts",
+            "tsConfig": "apps/lagacy-j-query/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/lagacy-j-query/src/favicon.ico",
+              "apps/lagacy-j-query/src/assets"
+            ],
+            "styles": ["apps/lagacy-j-query/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/lagacy-j-query/src/environments/environment.ts",
+                  "with": "apps/lagacy-j-query/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "lagacy-j-query:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "lagacy-j-query:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "lagacy-j-query:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/lagacy-j-query/tsconfig.app.json",
+              "apps/lagacy-j-query/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/lagacy-j-query/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/lagacy-j-query/jest.config.js",
+            "tsConfig": "apps/lagacy-j-query/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/lagacy-j-query/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "lagacy-j-query-e2e": {
+      "root": "apps/lagacy-j-query-e2e",
+      "sourceRoot": "apps/lagacy-j-query-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/lagacy-j-query-e2e/cypress.json",
+            "tsConfig": "apps/lagacy-j-query-e2e/tsconfig.e2e.json",
+            "devServerTarget": "lagacy-j-query:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "lagacy-j-query:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/lagacy-j-query-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/lagacy-j-query-e2e/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

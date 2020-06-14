@@ -21,6 +21,7 @@ const lifecycles = featureApp({
   template: '<micro-transactions-root />',
   Router,
   NgZone: NgZone,
+  domElementGetter:()=>document.querySelector("#layout-workarea")
 });
 
 export const bootstrap = lifecycles.bootstrap;

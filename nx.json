@@ -65,6 +65,20 @@
     },
     "platform-feature": {
       "tags": []
+    },
+    "lagacy-ng": {
+      "tags": []
+    },
+    "lagacy-ng-e2e": {
+      "tags": [],
+      "implicitDependencies": ["lagacy-ng"]
+    },
+    "lagacy-j-query": {
+      "tags": []
+    },
+    "lagacy-j-query-e2e": {
+      "tags": [],
+      "implicitDependencies": ["lagacy-j-query"]
     }
   }
 }
