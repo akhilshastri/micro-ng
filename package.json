@@ -39,7 +39,7 @@
     "@angular/router": "^9.1.0",
     "@nrwl/angular": "9.3.0",
     "core-js": "^2.5.4",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.5.4",
     "single-spa": "^5.5.3",
